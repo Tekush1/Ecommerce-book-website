@@ -1,52 +1,80 @@
 import React, { useState } from "react";
+import { auth, db } from "./firebase"; // Import Firebase setup
+import { doc, setDoc } from "firebase/firestore";
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
 import "./LoginPage.css";
 
 const LoginPage = () => {
-  // State to manage form data and errors
   const [formData, setFormData] = useState({
     username: "",
     email: "",
     password: "",
   });
   const [errors, setErrors] = useState({});
+  const [loading, setLoading] = useState(false);
 
-  // Validate email format
   const validateEmail = (email) => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return emailRegex.test(email);
   };
 
-  // Handle form submission
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const { username, email, password } = formData;
     let formErrors = {};
 
-    // Check for empty fields
+    // Validation Logic
     if (!username.trim()) formErrors.username = "Username is required.";
     if (!email.trim()) {
       formErrors.email = "Email is required.";
     } else if (!validateEmail(email)) {
       formErrors.email = "Please enter a valid email address.";
     }
-    if (!password.trim()) formErrors.password = "Password is required.";
-    if (password.length < 6)
-      formErrors.password = "Password must be at least 6 characters.";
+    if (!password.trim()) {
+      formErrors.password = "Password is required.";
+    } else if (password.length < 8) {
+      formErrors.password = "Password must be at least 8 characters.";
+    } else if (!/[A-Z]/.test(password)) {
+      formErrors.password = "Password must contain at least one uppercase letter.";
+    } else if (!/[a-z]/.test(password)) {
+      formErrors.password = "Password must contain at least one lowercase letter.";
+    } else if (!/[0-9]/.test(password)) {
+      formErrors.password = "Password must contain at least one digit.";
+    } else if (!/[!@#$%^&*(),.?":{}|<>]/.test(password)) {
+      formErrors.password = "Password must contain at least one special character.";
+    }
 
     setErrors(formErrors);
 
-    // If no errors, submit the form
     if (Object.keys(formErrors).length === 0) {
-      console.log("Form submitted successfully:", formData);
-      // Add your submission logic here (e.g., API call)
+      setLoading(true);
+      try {
+        // Firebase Authentication
+        const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+        const user = userCredential.user;
+
+        // Store additional user data in Firestore
+        await setDoc(doc(db, "users", user.uid), {
+          username,
+          email,
+          createdAt: new Date(),
+        });
+
+        console.log("User registered successfully:", user);
+        alert("Registration successful!");
+      } catch (error) {
+        console.error("Error during registration:", error.message);
+        setErrors({ general: error.message });
+      } finally {
+        setLoading(false);
+      }
     }
   };
 
-  // Handle input change
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
-    setErrors({ ...errors, [name]: "" }); // Clear error for the field being edited
+    setErrors({ ...errors, [name]: "" });
   };
 
   return (
@@ -54,6 +82,7 @@ const LoginPage = () => {
       <div className="login-content">
         <h1 className="title">Welcome Back!</h1>
         <p className="subtitle">Log in or sign up to continue</p>
+        {errors.general && <p className="error-message">{errors.general}</p>}
         <form className="input-group" onSubmit={handleSubmit}>
           <div className="input-wrapper">
             <input
@@ -91,8 +120,8 @@ const LoginPage = () => {
             />
             {errors.password && <span className="error-message">{errors.password}</span>}
           </div>
-          <button type="submit" className="login-btn">
-            Login / Sign Up
+          <button type="submit" className="login-btn" disabled={loading}>
+            {loading ? "Submitting..." : "Login / Sign Up"}
           </button>
         </form>
         <div className="actions">
