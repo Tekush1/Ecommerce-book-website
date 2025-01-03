@@ -1,0 +1,153 @@
+/* Home.css */
+
+/* General Body Styles */
+body {
+    margin: 0;
+    font-family: 'Roboto', sans-serif; /* Modern, clean font */
+    background-color: #f4f4f9; /* Light, neutral background */
+    color: #333333; /* Dark gray text for easy readability */
+    overflow-x: hidden; /* Prevent horizontal scroll */
+  }
+  
+  /* Text Shadow for the Hero Section */
+  .text-shadow {
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.2); /* Softer, more subtle shadow */
+  }
+  
+  /* Background Video */
+  video {
+    object-fit: cover;
+    opacity: 0.75;
+    z-index: -1;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+  
+  /* Hero Section */
+  h1 {
+    font-family: 'Roboto', sans-serif;
+    color: #333333; /* Neutral color for heading */
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-size: 3.5rem;
+    text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3); /* Elegant shadow effect */
+    line-height: 1.2;
+    margin-bottom: 20px;
+  }
+  
+  h1 span {
+    color: #0066cc; /* Soft blue for emphasis */
+  }
+  
+  /* Paragraph Styling */
+  p {
+    font-size: 1.2rem;
+    opacity: 0.9;
+    max-width: 700px;
+    margin: 0 auto 30px;
+    font-weight: 400;
+    color: #666666; /* Lighter gray for secondary text */
+  }
+  
+  /* Button Styling */
+  button {
+    transition: all 0.3s ease-in-out;
+    background-color: #0066cc; /* Cool blue button */
+    color: #ffffff; /* White text for contrast */
+    border: none;
+    font-size: 1.25rem;
+    padding: 15px 35px;
+    border-radius: 8px;
+    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    display: inline-block;
+  }
+  
+  button:hover {
+    background-color: #005bb5; /* Darker blue on hover */
+    transform: scale(1.05);
+    box-shadow: 0px 12px 20px rgba(0, 0, 0, 0.3);
+  }
+  
+  button:active {
+    transform: scale(0.98);
+    box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.4);
+  }
+  
+  /* Floating Book Animation */
+  svg {
+    animation: floating 6s ease-in-out infinite;
+    max-width: 120px;
+    transform-origin: center;
+  }
+  
+  @keyframes floating {
+    0% {
+      transform: translateY(0px) rotate(0deg);
+    }
+    50% {
+      transform: translateY(-15px) rotate(10deg);
+    }
+    100% {
+      transform: translateY(0px) rotate(0deg);
+    }
+  }
+  
+  /* Custom Scrollbars */
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+  
+  ::-webkit-scrollbar-track {
+    background: #f4f4f9;
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background: #0066cc;
+    border-radius: 10px;
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    background: #005bb5;
+  }
+  
+  /* Responsive Adjustments */
+  @media (max-width: 768px) {
+    h1 {
+      font-size: 2.8rem; /* Slightly smaller text on smaller screens */
+      text-align: center;
+    }
+  
+    p {
+      font-size: 1.1rem; /* Adjust paragraph size */
+    }
+  
+    button {
+      font-size: 1.1rem; /* Smaller button font on mobile */
+      padding: 14px 30px;
+    }
+  
+    .max-w-lg {
+      max-width: 90%;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    h1 {
+      font-size: 2rem; /* Even smaller text on very small screens */
+    }
+  
+    p {
+      font-size: 1rem; /* Adjust paragraph size for readability */
+    }
+  
+    button {
+      font-size: 1rem;
+      padding: 12px 25px;
+    }
+  }
+  

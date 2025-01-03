@@ -1,84 +1,154 @@
-/* Navbar General Styles */
+/* Navbar.css */
+
+body {
+  margin: 0;
+  font-family: "Arial", sans-serif;
+  background: linear-gradient(to right, #000428, #004e92);
+  color: white;
+  overflow-x: hidden;
+}
+
+/* Navbar Styling */
 .navbar {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(10px);
+  background: linear-gradient(to right, #6a11cb, #2575fc); /* Cool gradient from purple to blue */
+  color: white;
   padding: 15px 30px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  position: fixed;
-  width: 100%;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4); /* Strong shadow effect */
+  position: sticky;
   top: 0;
   z-index: 1000;
+  border-radius: 15px;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
 }
 
-.navbar-logo {
-  font-size: 1.5rem;
-  color: white;
+/* Hover effect to darken background */
+.navbar:hover {
+  background: linear-gradient(to right, #2575fc, #6a11cb); /* Reverse gradient on hover */
+  box-shadow: 0 12px 25px rgba(0, 0, 0, 0.6); /* More intense shadow on hover */
+}
+
+/* Navbar Brand */
+.navbar-brand a {
+  color: #fff;
+  text-decoration: none;
+  font-size: 2rem;
   font-weight: bold;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+  letter-spacing: 3px;
+  text-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
+  transition: transform 0.3s ease-in-out, text-shadow 0.3s ease;
 }
 
+/* Glowing effect on hover for brand */
+.navbar-brand a:hover {
+  transform: scale(1.1);
+  text-shadow: 0 0 20px #ffcc00, 0 0 30px #ffcc00; /* Glowing effect */
+}
+
+/* Navbar Links */
 .navbar-links {
-  display: flex;
-  gap: 20px;
   list-style: none;
+  display: flex;
+  gap: 2rem;
   margin: 0;
   padding: 0;
 }
 
-.navbar-links li a {
+.navbar-links li {
+  display: inline;
+  position: relative;
+}
+
+.navbar-links a {
   text-decoration: none;
   color: white;
-  font-size: 1rem;
-  transition: color 0.3s ease;
+  font-size: 1.1rem;
+  font-weight: 500;
+  transition: color 0.3s ease, transform 0.3s ease;
 }
 
-.navbar-links li a:hover {
-  color: #ff8a00;
+/* Hover effects for links */
+.navbar-links a:hover {
+  color: #ffcc00;
+  transform: translateY(-4px); /* Subtle lift effect */
+  text-shadow: 0 0 10px #ffcc00, 0 0 20px #ffcc00; /* Glowing effect */
 }
 
-/* Navbar Toggle for Mobile */
-.navbar-toggle {
-  display: none;
-  flex-direction: column;
-  gap: 5px;
-  background: none;
-  border: none;
-  cursor: pointer;
+/* Underline animation for navbar links */
+.navbar-links li::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background-color: #ffcc00;
+  transition: width 0.3s ease;
 }
 
-.toggle-bar {
-  width: 25px;
-  height: 3px;
-  background-color: white;
-  transition: transform 0.3s ease;
+.navbar-links li:hover::after {
+  width: 100%;
 }
 
-/* Responsive Design */
+/* Navbar Actions */
+.navbar-actions {
+  display: flex;
+  gap: 1.5rem;
+}
+
+.navbar-actions a {
+  text-decoration: none;
+  color: white;
+  font-size: 1.2rem;
+  transition: color 0.3s ease, transform 0.3s ease;
+}
+
+/* Hover effects for action links */
+.navbar-actions a:hover {
+  color: #ffcc00;
+  transform: scale(1.1); /* Slight scaling effect */
+  text-shadow: 0 0 10px #ffcc00, 0 0 20px #ffcc00; /* Glowing effect */
+}
+
+/* Mobile Responsive Styles */
 @media (max-width: 768px) {
-  .navbar-links {
-    display: none;
-    flex-direction: column;
-    background: rgba(0, 0, 0, 0.8);
-    position: absolute;
-    top: 100%;
-    right: 0;
-    width: 100%;
-    text-align: center;
-    padding: 20px 0;
-  }
-
-  .navbar-links.active {
-    display: flex;
-  }
-
-  .navbar-toggle {
-    display: flex;
-  }
-
   .navbar {
-    padding: 10px 20px;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 1rem;
   }
+
+  .navbar-links {
+    flex-direction: column;
+    gap: 1rem;
+    margin-top: 0.5rem;
+    width: 100%;
+    text-align: left;
+  }
+
+  .navbar-actions {
+    margin-top: 0.5rem;
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .navbar-actions a {
+    font-size: 1.5rem;
+  }
+}
+
+/* Animation for Navbar */
+@keyframes fadeInNavbar {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.navbar {
+  animation: fadeInNavbar 1s ease-in-out;
 }

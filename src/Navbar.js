@@ -1,29 +1,27 @@
-import React, { useState } from "react";
+import React from "react";
+import { Link } from "react-router-dom"; // Import Link for routing
 import "./Navbar.css";
 
-const Navbar = () => {
-  const [menuActive, setMenuActive] = useState(false);
-
-  const toggleMenu = () => {
-    setMenuActive(!menuActive);
-  };
-
+function Navbar() {
   return (
     <nav className="navbar">
-      <div className="navbar-logo">MyApp</div>
-      <ul className={`navbar-links ${menuActive ? "active" : ""}`}>
-        <li><a href="#home">Home</a></li>
-        <li><a href="#about">About</a></li>
-        <li><a href="#services">Services</a></li>
-        <li><a href="#contact">Contact</a></li>
+      <div className="navbar-brand">
+        <Link to="/">✨ Apna bazarr </Link>
+      </div>
+      <ul className="navbar-links">
+        <li><Link to="/">Home</Link></li>
+        <li><Link to="/products">Products</Link></li>
+        <li><Link to="/categories">Categories</Link></li>
+        <li><Link to="/deals">Deals</Link></li>
+        <li><Link to="/contact">Contact Us</Link></li>
       </ul>
-      <button className="navbar-toggle" onClick={toggleMenu}>
-        <span className="toggle-bar"></span>
-        <span className="toggle-bar"></span>
-        <span className="toggle-bar"></span>
-      </button>
+      <div className="navbar-actions">
+        <Link to="/cart">🛒 Cart</Link>
+        {/* Add the link to login page */}
+        <Link to="/login">👤 Login</Link>
+      </div>
     </nav>
   );
-};
+}
 
 export default Navbar;
